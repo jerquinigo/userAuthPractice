@@ -10,7 +10,7 @@ function loginUser(req, res) {
 
 function isLoggedIn(req, res) {
   if (req.user) {
-    res.json(req.user);
+    res.json({ username: req.user.username });
   } else {
     res.json({ email: null });
   }
