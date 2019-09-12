@@ -1,15 +1,28 @@
 import React, { Component } from "react";
-
+import axios from "axios";
 class SignUp extends Component {
   constructor() {
     super();
     this.state = {
       name: "",
-      email: "",
+      username: "",
       password: "",
       profile_pic: ""
     };
   }
+
+  handleSubmit = event => {
+    event.preventDefault();
+    let { name, username, password, profile_pic } = this.state;
+    // if (name && email && password) {
+    axios.post("/api/users/signUp", {
+      name: name,
+      username: username,
+      password: password
+    });
+
+    // }
+  };
 
   handleChange = e => {
     this.setState({
@@ -20,7 +33,7 @@ class SignUp extends Component {
   signUpForm = () => {
     return (
       <div>
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <input
             type="text"
             placeholder="name"
@@ -31,9 +44,9 @@ class SignUp extends Component {
           <br />
           <input
             type="text"
-            placeholder="email"
-            name="email"
-            value={this.state.email}
+            placeholder="username"
+            name="username"
+            value={this.state.username}
             onChange={this.handleChange}
           />
           <br />
@@ -52,6 +65,7 @@ class SignUp extends Component {
             value={this.state.profile_pic}
             onChange={this.handleChange}
           />
+          <button type="submit">on Submit</button>
         </form>
       </div>
     );
